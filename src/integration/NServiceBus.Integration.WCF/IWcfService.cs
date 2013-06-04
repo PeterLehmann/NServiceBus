@@ -8,7 +8,7 @@ namespace NServiceBus
     /// </summary>
     /// <typeparam name="TRequest"></typeparam>
     /// <typeparam name="TResponse"></typeparam>
-    [ServiceContract(Namespace = "http://nservicebus.com")]
+    [ServiceContract]
     public interface IWcfService<TRequest, TResponse>
     {
         /// <summary>
