@@ -34,10 +34,21 @@
             if (useTransactions && !QueueIsTransactional())
                 throw new ArgumentException("Queue must be transactional (" + address + ").");
 
-            var mpf = new MessagePropertyFilter();
-            mpf.SetAll();
+            var messageReadPropertyFilter = new MessagePropertyFilter
+            {
+                Body = true,
+                TimeToBeReceived = true,
+                Recoverable = true,
+                Id = true,
+                ResponseQueue = true,
+                CorrelationId = true,
+                Extension = true,
+                AppSpecific = true,
+                Label = true,
+                SentTime = true,
+            };
 
-            myQueue.MessageReadPropertyFilter = mpf;
+            myQueue.MessageReadPropertyFilter = messageReadPropertyFilter;
 
             if (PurgeOnStartup)
                 myQueue.Purge();

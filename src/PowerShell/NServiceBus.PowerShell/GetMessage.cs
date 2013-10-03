@@ -20,10 +20,14 @@
 
             
             var queue = new MessageQueue(queueAddress);
-            var mpf = new MessagePropertyFilter();
-            mpf.SetAll();
+            var messageReadPropertyFilter = new MessagePropertyFilter
+            {
+                Id = true, 
+                Extension = true, 
+                ArrivedTime = true
+            };
 
-            queue.MessageReadPropertyFilter = mpf;
+            queue.MessageReadPropertyFilter = messageReadPropertyFilter;
 
             var output = queue.GetAllMessages().Select(m => new
                 {

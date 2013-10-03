@@ -53,12 +53,16 @@ namespace NServiceBus.Unicast.Subscriptions.Msmq
             if (!transactional)
                 throw new ArgumentException("Queue must be transactional (" + Queue + ").");
 
-            var mpf = new MessagePropertyFilter();
-            mpf.SetAll();
+            var messageReadPropertyFilter = new MessagePropertyFilter
+            {
+                Id = true, 
+                Body = true, 
+                Label = true
+            };
 
             q.Formatter = new XmlMessageFormatter(new[] { typeof(string) });
 
-            q.MessageReadPropertyFilter = mpf;
+            q.MessageReadPropertyFilter = messageReadPropertyFilter;
 
             foreach (var m in q.GetAllMessages())
             {
