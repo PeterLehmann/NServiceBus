@@ -74,7 +74,10 @@ namespace NServiceBus.Timeout.Hosting.Windows
 
         public void Dispose()
         {
-            timeoutPersisterReceiver.Stop();
+	    if(timeoutPersisterReceiver != null)
+	    {
+                timeoutPersisterReceiver.Stop();
+	    }
 
             if (inputTransport != null)
             {
